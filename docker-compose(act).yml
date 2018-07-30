@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  hongjin-gs-101:
+    image: w88700126/hongjin-gs:latest
+    restart: always
+    ports:
+      - 15062:15062
+    environment:
+      - SERVERID=101
+      - DOCKER=1
+      - DBNAME=dv
+      - DBPWD=testman
+    volumes:
+      - ./hongjinlog/log101:/server/log/
+    #command: "/server/shell sh startgs.sh"
+    command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
+
+  # hongjin-gs-102:
+  #   image: w88700126/hongjin-gs:latest
+  #   restart: always
+  #   ports:
+  #     - 15112:15112
+  #   environment:
+  #     - SERVERID=102
+  #     - DOCKER=1
+  #     - DBNAME=dv
+  #     - DBPWD=testman
+  #   volumes:
+  #     - ./hongjinlog/log102:/server/log/
+  #   command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
+
+  hongjin-as-188:
+    image: w88700126/hongjin-as:latest
+    restart: always
+    ports:
+      - 15411:15411
+    environment:
+      - SERVERID=188
+      - DOCKER=1
+      - DBNAME=dv
+      - DBPWD=testman
+    volumes:
+      - ./hongjinlog/log188:/server/log/
+    command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
+
