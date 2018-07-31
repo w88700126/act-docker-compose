@@ -1,46 +1,31 @@
 version: '3'
 
 services:
-  hongjin-gs-101:
-    image: w88700126/hongjin-gs:latest
+  act-login-88:
+    image: w88700126/act-login:latest
     restart: always
+    privileged: true
     ports:
-      - 15062:15062
-    environment:
-      - SERVERID=101
-      - DOCKER=1
-      - DBNAME=dv
-      - DBPWD=testman
-    volumes:
-      - ./hongjinlog/log101:/server/log/
-    #command: "/server/shell sh startgs.sh"
+      - 14411:14411
+    #volumes:
+    #  - ./drone:/var/lib/drone/
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
 
-  # hongjin-gs-102:
-  #   image: w88700126/hongjin-gs:latest
-  #   restart: always
-  #   ports:
-  #     - 15112:15112
-  #   environment:
-  #     - SERVERID=102
-  #     - DOCKER=1
-  #     - DBNAME=dv
-  #     - DBPWD=testman
-  #   volumes:
-  #     - ./hongjinlog/log102:/server/log/
-  #   command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
-
-  hongjin-as-188:
-    image: w88700126/hongjin-as:latest
+  act-pvp-90:
+    image: w88700126/act-pvp:latest
     restart: always
+    privileged: true
     ports:
-      - 15411:15411
-    environment:
-      - SERVERID=188
-      - DOCKER=1
-      - DBNAME=dv
-      - DBPWD=testman
-    volumes:
-      - ./hongjinlog/log188:/server/log/
+      - 14520:14520
+      - 14521:14521
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
 
+  act-game-1:
+    image: w88700126/act-game:latest
+    restart: always
+    privileged: true
+    ports:
+      - 10062:10062
+    environment:
+      - ZONEID=1
+    command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
