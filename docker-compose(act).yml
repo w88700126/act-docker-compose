@@ -9,6 +9,9 @@ services:
       - 14411:14411
     volumes:
       - ./log/log88:/server/log/
+    networks:
+      my_net:
+          ipv4_address: 172.18.0.3
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
 
   act-pvp-90:
@@ -16,10 +19,13 @@ services:
     restart: always
     privileged: true
     ports:
-      - 14520:14520
-      - 14521:14521
+      - 14520:14520/udp
+      - 14521:14521/udp
     volumes:
       - ./log/log90:/server/log/
+    networks:
+      my_net:
+          ipv4_address: 172.18.0.4
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
 
   act-game-1:
@@ -32,4 +38,19 @@ services:
       - ZONEID=1
     volumes:
       - ./log/log1:/server/log/
+    networks:
+      my_net:
+          ipv4_address: 172.18.0.2
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
+
+networks:
+  my_net:
+    driver: bridge  #macvlan
+    #driver_opts:
+    #parent: enp3s0
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 172.18.0.0/24
+#    ip_range: 10.25.87.32/28
