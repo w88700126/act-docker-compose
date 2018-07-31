@@ -7,8 +7,8 @@ services:
     privileged: true
     ports:
       - 14411:14411
-    #volumes:
-    #  - ./drone:/var/lib/drone/
+    volumes:
+      - ./log/log88:/server/log/
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
 
   act-pvp-90:
@@ -18,6 +18,8 @@ services:
     ports:
       - 14520:14520
       - 14521:14521
+    volumes:
+      - ./log/log90:/server/log/
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
 
   act-game-1:
@@ -28,4 +30,6 @@ services:
       - 10062:10062
     environment:
       - ZONEID=1
+    volumes:
+      - ./log/log1:/server/log/
     command: "/usr/bin/supervisord -c /etc/supervisord.conf -n"
